@@ -1,7 +1,7 @@
 const express = require('express');
 const router = express.Router();
 const passport = require('passport')
-const models = require('../models')
+const User = require('../models/user')
 
 // Signup
 router.post('/signup', passport.authenticate('local-signup'), function(req, res) {
@@ -14,7 +14,7 @@ router.post('/login', passport.authenticate('local-login'), function(req, res) {
 })
 
 // Logout
-router.('/logout', function(req, res) {
+router.post('/logout', function(req, res) {
   res.logout()
 })
 

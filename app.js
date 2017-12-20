@@ -2,10 +2,12 @@ const bodyParser = require('body-parser')
 const cookieParser = require('cookie-parser')
 const express = require('express');
 const routes = require('./routes/index')
-const users = require('./routes/users')
+const controller = require('./routes/controller')
+const passport = require('passport')
 const http = require('http')
 const path = require('path');
 const cors = require('cors')
+const helmet = require('helmet')
 const session = require('express-session')
 const expressValidator = require('express-validator')
 const flash = require('connect-flash')
@@ -17,8 +19,9 @@ const db = mongoose.connection
 // Initialize app
 const app = express();
 
-// Enable up CORS
+// Set up CORS
 app.use(cors())
+app.use(helmet())
 
 // BodyParser Middleware
 app.use(bodyParser.json())
@@ -37,10 +40,10 @@ app.use(passport.initialize())
 app.use(passport.session())
 
 // Express Validator
-app.use(expressValidator(param, msg, value, location))
+// app.use(expressValidator(param, msg, value))
 
 // Connect Flash
-app.use(flash())
+// app.use(flash())
 
 // Global flash variables
 app.use((req, res, next) => {
@@ -52,31 +55,12 @@ app.use((req, res, next) => {
 })
 
 app.use('/', routes)
-app.use('/users', users);
 
 // Local host port
-app.set('port', process.env.PORT || 8000)
+// app.set('port', process.env.PORT || 8000)
 
 app.listen(app.get('port'), function() {
   console.log('Server started on port ' + app.get('port'));
 })
 
-// // catch 404 and forward to error handler
-// app.use(function(req, res, next) {
-//   var err = new Error('Not Found');
-//   err.status = 404;
-//   next(err);
-// });
-//
-// // error handler
-// app.use(function(err, req, res, next) {
-//   // set locals, only providing error in development
-//   res.locals.message = err.message;
-//   res.locals.error = req.app.get('env') === 'development' ? err : {};
-//
-//   // render the error page
-//   res.status(err.status || 500);
-//   res.render('error');
-// });
-
-// module.exports = app;
+module.exports = app;
