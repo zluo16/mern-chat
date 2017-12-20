@@ -26,23 +26,3 @@ export default class ChatContainer extends Component {
     )
   }
 }
-
-
-{/* <div className="message-box left-img">
-  <div className="picture">
-    <h3>Kevin</h3>
-  </div>
-  <div className="message">
-    <span>Bobby Giangeruso</span>
-    <p>Hey Mike, how are you doing?</p>
-  </div>
-</div>
-<div className="message-box right-img">
-  <div className="picture">
-    <h3>Mike</h3>
-  </div>
-  <div className="message">
-    <span>Mike Moloney</span>
-    <p>Pretty good, Eating nutella, nommommom</p>
-  </div>
-</div> */}

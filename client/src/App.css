@@ -2,6 +2,8 @@
   text-align: center;
 }*/
 
+@import url(https://fonts.googleapis.com/css?family=Bree+Serif|Jomhuria|Patua+One);
+
 html {
   height: 100%;
 }
@@ -18,6 +20,97 @@ a {
   text-decoration: none;
 }
 
+.login {
+  background: url(./background-imgs/marc-olivier-jodoin-409708.jpg);
+  height: 100vh;
+  background-size: cover;
+  overflow: hidden;
+}
+
+.form-wrapper {
+  width: 400px;
+  height: 400px;
+  margin: 70px auto;
+  }
+  .form-box {
+    width: 400px;
+  	margin: 17% auto;
+  	position: relative;
+  	border-radius: 5px;
+    }
+    .form-box h1 {
+      font-family: 'Patua One', cursive;
+    	font-weight: 400;
+    	font-size: 50px;
+      padding: 40px 30px 10px 30px;
+      line-height: 34px;
+      color: white;
+    }
+    .form-box .content {
+      padding: 0 30px 25px 30px;
+      }
+      .form-box .content input {
+        width: 285px;
+        padding: 15px 25px;
+        font-family: "HelveticaNeue-Light", "Helvetica Neue Light", "Helvetica Neue", Helvetica, Arial, "Lucida Grande", sans-serif;
+        font-weight: 400;
+        font-size: 14px;
+        color: #9d9e9e;
+        border-radius: 5px;
+        margin-top: 10px;
+        transition-property: color background;
+        transition-duration: 0.3s;
+      }
+      .form-box .content input:hover {
+        background: #dfe9ec;
+        color: #414848;
+      }
+      .form-box .content input:focus {
+        background: #dfe9ec;
+        color: #414848;
+      }
+    .form-box .form-footer {
+      padding: 0px 30px 40px 30px;
+	    overflow: auto;
+      }
+      .form-box .form-footer .login-button {
+        float: left;
+        padding: 11px 50px;
+        font-family: 'Patua One', cursive;
+        font-weight: 300;
+        font-size: 18px;
+        color: #46b3d3;
+        /*background: #56c2e1;*/
+        background: transparent;
+      	border: 3px solid #46b3d3;
+      	border-radius: 5px;
+      	cursor: pointer;
+        transition-property: color background;
+        transition-duration: 0.3s;
+        }
+        .form-box .form-footer .login-button:hover {
+          background: #46b3d3;
+          color: #fff;
+        }
+      .form-box .form-footer .signup-button {
+        float: right;
+        padding: 11px 50px;
+        font-family: 'Patua One', cursive;
+        font-weight: 300;
+        font-size: 18px;
+        color: #4BA046;
+        background: transparent;
+      	border: 3px solid #4BA046;
+      	border-radius: 5px;
+      	cursor: pointer;
+        transition-property: color background;
+        transition-duration: 0.3s;
+        }
+        .form-box .form-footer .signup-button:hover {
+          background: #4BA046;
+          color: #fff
+        }
+
 .wrapper {
   display: grid;
   grid-template-columns: 33.3% 33.3% 33.3%;
@@ -29,7 +122,8 @@ a {
   grid-column: 1;
   }
   .list div {
-    padding: 20px 20px 18px 20px;
+    padding: 14px 20px 8px 20px;
+    /*border-bottom: 2px solid rgba(236, 236, 236, 1);*/
   }
   .list h3 {
     color: #a1a1a1;
@@ -43,8 +137,21 @@ a {
     font-size: 14px;
     font-style: italic;
   }
+  .list img {
+    width: 48px;
+    height: 48px;
+    border-radius: 25px;
+  }
+  .list, div.username {
+    display: inline-block;
+    border: hidden;
+  }
 
-.list-header {
+div.highlighted {
+  background: rgba(236, 236, 236, 1);
+}
+
+div.list-header {
   padding: 20px 20px 18px 20px;
   background: #6294c2;
   color: #fff;
@@ -181,4 +288,39 @@ a {
     border-radius: 2px;
     float: right;
     margin-left: 50px;
+  }
+
+.profile-wrapper {
+  grid-column: 3;
+  }
+  .profile-wrapper img {
+    width: 50%;
+    border-radius: 25%;
+    margin-top: 15%;
+    margin-left: 25%;
+  }
+  .profile-wrapper h1 {
+    color: #888888;
+    font-size: 34px;
+    line-height: 15px;
+    margin-top: 5%;
+    margin-left: 30%;
+  }
+  .profile-wrapper p {
+    color: #888888;
+    font-size: 18px;
+    font-style: italic;
+    margin-top: 5%;
+    margin-left: 45%;
+  }
+
+div.profile-header {
+  padding: 20px 20px 18px 20px;
+  background: #6294c2;
+  color: #fff;
+  }
+  .profile-header h2 {
+    font-size: 16px;
+    line-height: 15px;
+    display: inline-block;
   }
