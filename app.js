@@ -5,6 +5,7 @@ const routes = require('./routes/index')
 const users = require('./routes/users')
 const http = require('http')
 const path = require('path');
+const cors = require('cors')
 const session = require('express-session')
 const expressValidator = require('express-validator')
 const flash = require('connect-flash')
@@ -15,6 +16,9 @@ const db = mongoose.connection
 
 // Initialize app
 const app = express();
+
+// Enable up CORS
+app.use(cors())
 
 // BodyParser Middleware
 app.use(bodyParser.json())

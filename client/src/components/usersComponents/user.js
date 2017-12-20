@@ -10,14 +10,6 @@ export default class User extends Component {
     }
   }
 
-  onMouseOver = () => {
-    this.setState({ selected: 'highlighted' })
-  }
-
-  onMouseOff = () => {
-    this.setState({ selected: '' })
-  }
-
   onSelect = () => {
     this.setState({ selected: 'highlighted' })
   }
@@ -30,9 +22,7 @@ export default class User extends Component {
 
     return (
       <div
-        className={this.state.selected}
-        onMouseOver={this.onMouseOver}
-        onMouseOut={this.onMouseOff}>
+        className={this.state.selected}>
         <img src='./user-placeholder.jpg' />
         <div className='username'>
           <h3>{fn}</h3>

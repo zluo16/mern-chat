@@ -124,6 +124,11 @@ a {
   .list div {
     padding: 14px 20px 8px 20px;
     /*border-bottom: 2px solid rgba(236, 236, 236, 1);*/
+    transition-property: background;
+    transition-duration: 0.5s;
+  }
+  .list div:hover {
+    background: rgba(236, 236, 236, 1);
   }
   .list h3 {
     color: #a1a1a1;
@@ -147,9 +152,9 @@ a {
     border: hidden;
   }
 
-div.highlighted {
+/*div.highlighted {
   background: rgba(236, 236, 236, 1);
-}
+}*/
 
 div.list-header {
   padding: 20px 20px 18px 20px;
