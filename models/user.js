@@ -17,7 +17,7 @@ userSchema.methods.genPassHash = function(password) {
   return bcrypt.hashSync(password, genSaltSync(10))
 }
 
-userSchema.methods.validatePassword = function(password) {
+userSchema.methods.isValidPassword = function(password) {
   return bcrypt.campareSync(password, this.user.password)
 }
 
