@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { BrowserRouter as Router, Route } from 'react-router-dom'
 import HomeContainer from './components/homeContainer'
-import Login from './components/login'
+import { ConnectedLogin } from './components/login'
 import './App.css';
 
 class App extends Component {
@@ -10,7 +10,7 @@ class App extends Component {
       <div className="App">
         <Router>
           <div>
-            <Route exact path='/login' component={Login} />
+            <Route exact path='/login' component={ConnectedLogin} />
             <Route path='/home' component={HomeContainer} />
           </div>
         </Router>

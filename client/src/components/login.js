@@ -1,18 +1,42 @@
 import React, { Component } from 'react'
+import * as actions from '../actions/authActions'
+import { bindActionCreators } from 'redux'
+import { connect } from 'react-redux'
 
-export default class Login extends Component {
+export class Login extends Component {
 
-  state = {}
+  state = {
+    username: '',
+    password: ''
+  }
+
+  onInputChange = (event) => {
+    this.setState({ [event.target.name]: event.target.value })
+  }
+
+  onSubmit = () => {
+    this.props.actions.login(this.state)
+  }
 
   render() {
     return (
       <div className='login login-grid'>
-        <form className='form-box'>
+        <form className='form-box' onSubmit={this.onSubmit}>
           <h1>Login..</h1>
 
           <div className='content'>
-            <input name='username' placeholder='Username' type='text' />
-            <input name='password' placeholder='Password' type='password' />
+            <input
+              name='username'
+              placeholder='Username'
+              type='text'
+              onChange={this.onInputChange}
+            />
+            <input
+              name='password'
+              placeholder='Password'
+              type='password'
+              onChange={this.onInputChange}
+            />
           </div>
 
           <div className='form-footer'>
@@ -24,3 +48,9 @@ export default class Login extends Component {
     )
   }
 }
+
+const mapDispatchToProps = (dispatch) => {
+  return { actions: bindActionCreators(actions, dispatch) }
+}
+
+export const ConnectedLogin = connect(null, mapDispatchToProps)(Login)
