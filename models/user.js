@@ -2,7 +2,7 @@ const bcrypt = require('bcrypt')
 const mongoose = require('mongoose')
 
 const userSchema = mongoose.Schema({
-  user: {
+  local: {
     _id: { type: mongoose.Schema.Types.ObjectId },
     username: { type: String, unique: true, required: true },
     firstName: { type: String, required: true },
@@ -14,11 +14,11 @@ const userSchema = mongoose.Schema({
 })
 
 userSchema.methods.genPassHash = function(password) {
-  return bcrypt.hashSync(password, genSaltSync(10))
+  return bcrypt.hashSync(password, bcrypt.genSaltSync(10))
 }
 
 userSchema.methods.isValidPassword = function(password) {
-  return bcrypt.campareSync(password, this.user.password)
+  return bcrypt.campareSync(password, this.local.password)
 }
 
 module.exports = mongoose.model('User', userSchema)

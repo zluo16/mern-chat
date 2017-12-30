@@ -109,6 +109,43 @@ a {
         .form-box .form-footer .signup-button:hover {
           background: #4BA046;
           color: #fff
+      }
+      .form-box .form-footer .signup-submit {
+        float: left;
+        padding: 11px 50px;
+        font-family: 'Patua One', cursive;
+        font-weight: 300;
+        font-size: 18px;
+        color: #4BA046;
+        background: transparent;
+      	border: 3px solid #4BA046;
+      	border-radius: 5px;
+      	cursor: pointer;
+        transition-property: color background;
+        transition-duration: 0.3s;
+        }
+        .form-box .form-footer .signup-submit:hover {
+          background: #4BA046;
+          color: #fff
+        }
+      .form-box .form-footer .back-login {
+        float: right;
+        padding: 11px 50px;
+        font-family: 'Patua One', cursive;
+        font-weight: 300;
+        font-size: 18px;
+        color: #46b3d3;
+        /*background: #56c2e1;*/
+        background: transparent;
+      	border: 3px solid #46b3d3;
+      	border-radius: 5px;
+      	cursor: pointer;
+        transition-property: color background;
+        transition-duration: 0.3s;
+        }
+        .form-box .form-footer .back-login:hover {
+          background: #46b3d3;
+          color: #fff;
         }
 
 .wrapper {

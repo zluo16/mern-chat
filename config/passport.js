@@ -1,16 +1,33 @@
+// const passport = require('passport')
 const User = require('../models/user')
 const LocalStrategy = require('passport-local').Strategy
 
 module.exports = (config, passport) => {
+  // Serialize user
+  passport.serializeUser(function(user, done) {
+    done(null, user);
+  })
+  // Deserialize user
+  passport.deserializeUser(function(user, done) {
+    User.findOne({ 'local.username': user.username }, function(err, usr) {
+      if (err) {
+        return done(err);
+      }
+      done(null, usr);
+    })
+  })
+  // Passport local signup strategy
   passport.use('signup', new LocalStrategy({
+    usernameField: 'username',
+    passwordField: 'password',
     passReqToCallback: true
   },
   function(req, username, password, done) {
     // Check if username already exists
-    User.findOne({ 'user.username': username }, function(err, user) {
+    User.findOne({ 'local.username': username }, function(err, user) {
       // Handle error
       if (err) {
-        console.log('Error in signup' + err);
+        console.log('Error in signup ' + err);
         return done(err)
       }
       // If user already exists
@@ -20,14 +37,14 @@ module.exports = (config, passport) => {
       } else {
         // Create user
         const newUser = User()
-        newUser.user.username = username
-        newUser.user.firstName = req.param('firstName')
-        newUser.user.lastName = req.param('lastName')
-        newUser.user.password = newUser.genPassHash(password)
+        newUser.local.username = username
+        newUser.local.firstName = req.param('firstName')
+        newUser.local.lastName = req.param('lastName')
+        newUser.local.password = newUser.genPassHash(password)
         // Save user
         newUser.save(function(err) {
           if (err) {
-            console.log('Error in saving user' + err);
+            console.log('Error in saving user ' + err);
             throw err
           }
           console.log('User signup successful');
@@ -36,16 +53,18 @@ module.exports = (config, passport) => {
       }
     })
   }))
-
+  // passport local login strategy
   passport.use('login', new LocalStrategy({
+    usernameField: 'username',
+    passwordField: 'password',
     passReqToCallback: true
   },
   function(req, username, password, done) {
     // Find user by username if user exists
-    User.findOne({ 'user.username': username }, function(err, user) {
+    User.findOne({ 'local.username': username }, function(err, user) {
       // Handle error
       if (err) {
-        console.log('Error in login' + err);
+        console.log('Error in login ' + err);
         return done(err)
       }
       // If user doesn't exist

@@ -9,7 +9,7 @@
 6 silly lifecycle mern-chat@0.1.0~prestart: no script for prestart, continuing
 7 info lifecycle mern-chat@0.1.0~start: mern-chat@0.1.0
 8 verbose lifecycle mern-chat@0.1.0~start: unsafe-perm in lifecycle true
-9 verbose lifecycle mern-chat@0.1.0~start: PATH: /Users/flatironschool/.nvm/versions/node/v7.1.0/lib/node_modules/npm/bin/node-gyp-bin:/Users/flatironschool/Desktop/Dev/personal-projects/mern-chat/node_modules/.bin:/Users/flatironschool/.nvm/versions/node/v7.1.0/bin:/Users/flatironschool/.rvm/gems/ruby-2.3.1/bin:/Users/flatironschool/.rvm/gems/ruby-2.3.1@global/bin:/Users/flatironschool/.rvm/rubies/ruby-2.3.1/bin:/Applications/Postgres.app/Contents/Versions/latest/bin:/usr/local:/usr/local/bin:/usr/local/sbin:/usr/bin:/usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin:/Users/flatironschool/.rvm/bin
+9 verbose lifecycle mern-chat@0.1.0~start: PATH: /Users/flatironschool/.nvm/versions/node/v7.1.0/lib/node_modules/npm/bin/node-gyp-bin:/Users/flatironschool/Desktop/Dev/personal-projects/mern-chat/node_modules/.bin:/Users/flatironschool/.rvm/gems/ruby-2.3.1/bin:/Users/flatironschool/.rvm/gems/ruby-2.3.1@global/bin:/Users/flatironschool/.rvm/rubies/ruby-2.3.1/bin:/Users/flatironschool/.nvm/versions/node/v7.1.0/bin:/Applications/Postgres.app/Contents/Versions/latest/bin:/usr/local:/usr/local/bin:/usr/local/sbin:/usr/bin:/usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin:/Users/flatironschool/.rvm/bin
 10 verbose lifecycle mern-chat@0.1.0~start: CWD: /Users/flatironschool/Desktop/Dev/personal-projects/mern-chat
 11 silly lifecycle mern-chat@0.1.0~start: Args: [ '-c', 'node ./bin/www' ]
 12 silly lifecycle mern-chat@0.1.0~start: Returned: code: 1  signal: null

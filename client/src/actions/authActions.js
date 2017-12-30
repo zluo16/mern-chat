@@ -15,3 +15,17 @@ export function login(loginParams) {
       })
   }
 }
+
+export function singup(signupParams) {
+  return (dispatch) => {
+    console.log('Signing Up');
+    AuthAdapter.signup(signupParams)
+      .then(res => {
+        if (res.error) {
+          console.log('Signup failed');
+        } else {
+          debugger
+        }
+      })
+  }
+}
