@@ -2,20 +2,24 @@
 const User = require('../models/user')
 const LocalStrategy = require('passport-local').Strategy
 
-module.exports = (config, passport) => {
+module.exports = (passport) => {
   // Serialize user
   passport.serializeUser(function(user, done) {
-    done(null, user);
-  })
+    // console.log(user.local);
+    // console.log(done);
+    done(null, user.local);
+  });
   // Deserialize user
   passport.deserializeUser(function(user, done) {
-    User.findOne({ 'local.username': user.username }, function(err, usr) {
+    console.log(user);
+    User.findOne({ 'user.username': username }, function(err, usr) {
       if (err) {
         return done(err);
       }
-      done(null, usr);
+      done(null, usr.local);
     })
-  })
+  });
+
   // Passport local signup strategy
   passport.use('signup', new LocalStrategy({
     usernameField: 'username',
@@ -81,4 +85,4 @@ module.exports = (config, passport) => {
       return done(null, user)
     })
   }))
-}
+};

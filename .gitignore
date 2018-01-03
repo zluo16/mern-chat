@@ -2,3 +2,7 @@
 /node_modules
 
 .DS_Store
+
+# config files
+/config/database.js
+/config/session.js

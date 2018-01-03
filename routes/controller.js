@@ -2,8 +2,7 @@ const express = require('express');
 const router = express.Router();
 const passport = require('passport')
 const User = require('../models/user')
-
-require('../config/passport')(null, passport)
+const app = require('../app');
 
 // Signup
 router.post('/signup', passport.authenticate('signup'), function(req, res) {
@@ -18,6 +17,12 @@ router.post('/login', passport.authenticate('login'), function(req, res) {
 
 // Logout
 router.get('/logout', function(req, res) {
+  // req.session.destroy(err => {
+  //   res.send({ message: 'Logout Successful' })
+  // });
+  // logOut(req, function(err) {
+  //   res.send({ message: 'Logout Successful' });
+  // });
   req.logout();
 });
 
@@ -30,9 +35,13 @@ router.get('/users', function(req, res) {
       throw err
     }
     // return results in JSON form
-    // res.setHeaders('Content-Type', 'application/json')
     return res.send(users);
   });
 });
+
+// Session (for testing purposes)
+router.get('/session', function(req, res, next) {
+  // res.send();
+})
 
 module.exports = router;

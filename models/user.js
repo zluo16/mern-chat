@@ -18,7 +18,7 @@ userSchema.methods.genPassHash = function(password) {
 }
 
 userSchema.methods.isValidPassword = function(password) {
-  return bcrypt.campareSync(password, this.local.password)
+  return bcrypt.compareSync(password, this.local.password)
 }
 
 module.exports = mongoose.model('User', userSchema)
