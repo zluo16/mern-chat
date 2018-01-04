@@ -14,6 +14,7 @@ const MongoStore = require('connect-mongo')(session)
 const expressValidator = require('express-validator')
 const flash = require('connect-flash')
 const socket = require('socket.io').listen(4000).sockets
+const models = require('./models/')
 const mongoose = require('mongoose')
 const configDB = require('./config/database')
 const sesh = require('./config/session')
@@ -47,10 +48,10 @@ const mongoStore = new MongoStore({ mongooseConnection: db });
 
 // Express Session
 app.use(session({
-  key: 'express.sid',
   store: mongoStore,
   secret: process.env.SESSION_SECRET || sesh.secret,
-  cookie: { httpOnly: false }
+  cookie: { httpOnly: false },
+  unset: 'destroy'
 }));
 
 // Initialize Passport

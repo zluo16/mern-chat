@@ -1,7 +1,7 @@
 const express = require('express');
 const router = express.Router();
 const passport = require('passport')
-const User = require('../models/user')
+const models = require('../models/')
 const app = require('../app');
 
 // Signup
@@ -17,19 +17,14 @@ router.post('/login', passport.authenticate('login'), function(req, res) {
 
 // Logout
 router.get('/logout', function(req, res) {
-  // req.session.destroy(err => {
-  //   res.send({ message: 'Logout Successful' })
-  // });
-  // logOut(req, function(err) {
-  //   res.send({ message: 'Logout Successful' });
-  // });
   req.logout();
+  res.send({ message: 'Logout Successful' });
 });
 
 // Users (used for testing purposes)
 router.get('/users', function(req, res) {
   // Find all users
-  User.find({}, function(err, users) {
+  models.User.find({}, function(err, users) {
     // Handle errors
     if (err) {
       throw err
