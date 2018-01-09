@@ -64,24 +64,6 @@ app.use(function printSession(req, res, next) {
   return next();
 });
 
-// // Serialize user
-// passport.serializeUser(function(user, done) {
-//   done(null, user.local);
-// });
-// // Deserialize user
-// passport.deserializeUser(function(user, done) {
-//   console.log(user);
-//   User.findOne({ 'user.username': username }, function(err, usr) {
-//     if (err) {
-//       return done(err);
-//     }
-//     done(null, usr.local);
-//   })
-// });
-
-// Express Validator
-// app.use(expressValidator(param, msg, value))
-
 // Connect Flash
 app.use(flash())
 
@@ -101,10 +83,10 @@ app.get('*', function(req, res) {
 })
 
 // Local host port
-// app.set('port', process.env.PORT || 8000)
+app.set('port', process.env.PORT || 8000)
 
-// app.listen(app.get('port'), function() {
-//   console.log('Server started on port ' + app.get('port'));
-// })
+app.listen(app.get('port'), function() {
+  console.log('Server started on port ' + app.get('port'));
+})
 
-module.exports = app;
+// module.exports = app;

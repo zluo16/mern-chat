@@ -1,3 +1,3 @@
-export default function backend() {
-  return 'http://localhost:4000/api/v1'
+export default function() {
+  return 'http://localhost:8000'
 }

@@ -15,13 +15,13 @@ export class Login extends Component {
   }
 
   onSubmit = () => {
-    this.props.actions.login(this.state)
+    this.props.actions.login(this.state);
   }
 
   render() {
     return (
       <div className='login login-grid'>
-        <form className='form-box' onSubmit={this.onSubmit}>
+        <form className='form-box' onSubmit={this.onSubmit.bind(this)}>
           <h1>Login..</h1>
 
           <div className='content'>
@@ -29,13 +29,13 @@ export class Login extends Component {
               name='username'
               placeholder='Username'
               type='text'
-              onChange={this.onInputChange}
+              onChange={this.onInputChange.bind(this)}
             />
             <input
               name='password'
               placeholder='Password'
               type='password'
-              onChange={this.onInputChange}
+              onChange={this.onInputChange.bind(this)}
             />
           </div>
 

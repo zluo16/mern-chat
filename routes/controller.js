@@ -12,7 +12,7 @@ router.post('/signup', passport.authenticate('signup'), function(req, res) {
 
 // Login
 router.post('/login', passport.authenticate('login'), function(req, res) {
-  res.send(req.user);
+  res.json(req.user);
 });
 
 // Logout
