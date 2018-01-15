@@ -5,6 +5,7 @@ import { Provider } from 'react-redux'
 import thunk from 'redux-thunk'
 import rootReducer from './reducers/index'
 import App from './App';
+import registerServiceWorker from './registerServiceWorker'
 
 const store = createStore(
   rootReducer,
@@ -20,3 +21,5 @@ ReactDOM.render(
   </Provider>
   , document.getElementById('root')
 );
+
+registerServiceWorker();

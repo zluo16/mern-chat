@@ -3,8 +3,8 @@
   "version": "0.1.0",
   "private": true,
   "scripts": {
-    "start": "node app.js",
-    "heroku-postbuild": "cd client && yarn install && yarn start",
+    "start": "cross-env BABEL_DISABLE_CACHE=1 NODE_ENV=development nodemon app.js",
+    "heroku-postbuild": "",
     "webpack": "webpack"
   },
   "dependencies": {
@@ -20,28 +20,45 @@
     "connect-mongo": "^2.0.0",
     "cookie-parser": "~1.4.3",
     "cors": "^2.8.4",
+    "cross-env": "^5.1.3",
     "css-loader": "^0.28.8",
     "debug": "~2.6.9",
+    "eventsource-polyfill": "^0.9.6",
     "express": "~4.15.5",
     "express-session": "^1.15.6",
     "express-validator": "^4.3.0",
     "file-loader": "^1.1.6",
     "helmet": "^3.9.0",
+    "html-loader": "^0.5.4",
+    "html-webpack-plugin": "^2.30.1",
+    "json-loader": "^0.5.7",
     "mongodb": "^3.0.0-rc0",
     "mongoose": "^4.13.7",
     "morgan": "^1.9.0",
     "passport": "^0.4.0",
     "passport-http": "^0.3.0",
     "passport-local": "^1.0.0",
-    "pug": "2.0.0-beta11",
+    "react": "^16.2.0",
+    "react-dom": "^16.2.0",
+    "react-hot-loader": "^4.0.0-beta.14",
+    "react-redux": "^5.0.6",
+    "react-router-dom": "^4.2.2",
+    "react-scripts": "1.0.17",
+    "redux": "^3.7.2",
+    "redux-devtools": "^3.4.1",
+    "redux-thunk": "^2.2.0",
     "serve-favicon": "~2.4.5",
     "socket.io": "^2.0.4",
     "style-loader": "^0.19.1",
+    "url-loader": "^0.6.2",
     "webpack": "^3.10.0",
     "webpack-dev-server": "^2.10.0"
   },
   "devDependencies": {
+    "nodemon": "^1.14.11",
     "webpack-dev-middleware": "^2.0.3",
-    "webpack-hot-middleware": "^2.21.0"
+    "webpack-externals-plugin": "^1.0.0",
+    "webpack-hot-middleware": "^2.21.0",
+    "webpack-manifest-plugin": "^1.3.2"
   }
 }

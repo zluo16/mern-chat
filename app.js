@@ -15,6 +15,10 @@ const expressValidator = require('express-validator')
 const flash = require('connect-flash')
 const socket = require('socket.io').listen(4000).sockets
 const models = require('./models/')
+const config = require('./webpack.config.dev');
+const webpack = require('webpack');
+const webpackDevMiddleware = require('webpack-dev-middleware');
+const webpackHotMiddleware = require('webpack-hot-middleware');
 const mongoose = require('mongoose')
 const configDB = require('./config/database')
 const sesh = require('./config/session')
@@ -29,8 +33,15 @@ require('./config/passport')(passport)
 // Initialize app
 const app = express();
 
-// Serve static files from React
-app.use(express.static(path.join(__dirname, '/client/public')))
+// Run Webpack Dev Server in development mode
+if (process.env.NODE_ENV === 'development') {
+  const compiler = webpack(config);
+  app.use(webpackDevMiddleware(compiler, {
+    noInfo: true,
+    publicPath: config.output.publicPath
+  }));
+  app.use(webpackHotMiddleware(compiler));
+};
 
 // Set up CORS
 app.use(cors());
@@ -65,7 +76,7 @@ app.use(function printSession(req, res, next) {
 });
 
 // Connect Flash
-app.use(flash())
+app.use(flash());
 
 // Global flash variables
 app.use((req, res, next) => {
@@ -74,19 +85,18 @@ app.use((req, res, next) => {
   res.locals.error = req.flash('error');
   res.locals.user = req.user || null;
   next();
-})
+});
 
-app.use('/', routes)
+app.use('/', routes);
 
-app.get('*', function(req, res) {
-  res.sendFile(path.join(__dirname + '/client/public/index.html'))
-})
+// Serve static files from React
+app.use(express.static(path.join(__dirname, 'public')));
 
 // Local host port
-app.set('port', process.env.PORT || 8000)
+app.set('port', process.env.PORT || 8000);
 
 app.listen(app.get('port'), function() {
   console.log('Server started on port ' + app.get('port'));
-})
+});
 
 // module.exports = app;
