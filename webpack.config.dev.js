@@ -1,9 +1,10 @@
 const path = require('path');
 const webpack = require('webpack');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
+const FaviconsWebpackPlugin = require('favicons-webpack-plugin');
 
 module.exports = {
-  devtool: 'inline-source-map',
+  devtool: 'cheap-eval-source-map',
 
   entry: {
     app: [
@@ -20,7 +21,7 @@ module.exports = {
   },
 
   output: {
-    path: path.resolve(__dirname + '/public/build'),
+    path: path.resolve(__dirname + '/dist/'),
     filename: '[name].js',
     publicPath: '/'
   },
@@ -28,6 +29,11 @@ module.exports = {
   resolve: {
     extensions: ['.js', '.jsx'],
     modules: ['src', 'node_modules']
+  },
+
+  node: {
+    __filename: false,
+    __dirname: false
   },
 
   module: {
@@ -67,8 +73,11 @@ module.exports = {
       minChunks: Infinity,
       filename: 'vendors.js'
     }),
+    new FaviconsWebpackPlugin('./public/chat-logo.png'),
     new HtmlWebpackPlugin({
-      template: 'public/index.html'
+      template: 'public/index.html',
+      inject: 'body',
+      filename: 'index.html'
     })
   ]
 };

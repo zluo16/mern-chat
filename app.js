@@ -19,6 +19,8 @@ const config = require('./webpack.config.dev');
 const webpack = require('webpack');
 const webpackDevMiddleware = require('webpack-dev-middleware');
 const webpackHotMiddleware = require('webpack-hot-middleware');
+const history = require('connect-history-api-fallback');
+const favicon = require('serve-favicon');
 const mongoose = require('mongoose')
 const configDB = require('./config/database')
 const sesh = require('./config/session')
@@ -36,8 +38,9 @@ const app = express();
 // Run Webpack Dev Server in development mode
 if (process.env.NODE_ENV === 'development') {
   const compiler = webpack(config);
+  app.use(history());
   app.use(webpackDevMiddleware(compiler, {
-    noInfo: true,
+    noInfo: false,
     publicPath: config.output.publicPath
   }));
   app.use(webpackHotMiddleware(compiler));
@@ -71,7 +74,7 @@ app.use(passport.session())
 
 // For testing purposes only
 app.use(function printSession(req, res, next) {
-  console.log('req.session', req.session);
+  // console.log('req.session', req.session);
   return next();
 });
 
@@ -91,6 +94,9 @@ app.use('/', routes);
 
 // Serve static files from React
 app.use(express.static(path.join(__dirname, 'public')));
+
+// Serve favicon
+// app.use(favicon(path.join(__dirname, 'public', 'chat-logo.png')));
 
 // Local host port
 app.set('port', process.env.PORT || 8000);
