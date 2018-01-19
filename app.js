@@ -35,12 +35,15 @@ require('./config/passport')(passport)
 // Initialize app
 const app = express();
 
+// Serve static files from React
+app.use(express.static(path.join(__dirname, 'public')));
+
 // Run Webpack Dev Server in development mode
 if (process.env.NODE_ENV === 'development') {
   const compiler = webpack(config);
   app.use(history());
   app.use(webpackDevMiddleware(compiler, {
-    noInfo: false,
+    noInfo: true,
     publicPath: config.output.publicPath
   }));
   app.use(webpackHotMiddleware(compiler));
@@ -92,17 +95,12 @@ app.use((req, res, next) => {
 
 app.use('/', routes);
 
-// Serve static files from React
-app.use(express.static(path.join(__dirname, 'public')));
-
-// Serve favicon
-// app.use(favicon(path.join(__dirname, 'public', 'chat-logo.png')));
-
 // Local host port
 app.set('port', process.env.PORT || 8000);
 
+// Set up server
 app.listen(app.get('port'), function() {
   console.log('Server started on port ' + app.get('port'));
 });
 
-// module.exports = app;
+module.exports = app;

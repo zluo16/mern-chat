@@ -1,6 +1,6 @@
 export default class AuthAdapter {
   static login(loginParams) {
-    return fetch(`${apiUrl()}/api/login`, {
+    return fetch('/api/login', {
       method: 'POST',
       headers: headers(),
       body: JSON.stringify(loginParams)
@@ -12,11 +12,18 @@ export default class AuthAdapter {
   }
 
   static signup(signupParams) {
-    return fetch(`${apiUrl()}/api/signup`, {
+    return fetch('/api/signup', {
       method: 'POST',
       headers: headers(),
       body: JSON.stringify(signupParams)
     }).then(res => res.json())
+  }
+
+  static test() {
+    return fetch('/api/users').then(res => res.json())
+      .then(res => {
+        debugger
+      })
   }
 }
 
@@ -27,6 +34,6 @@ function headers() {
   }
 }
 
-function apiUrl() {
-  return 'http://localhost:8000'
-}
+// function apiUrl() {
+//   return 'http://localhost:8000'
+// }

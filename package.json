@@ -4,6 +4,7 @@
   "private": true,
   "scripts": {
     "start": "cross-env BABEL_DISABLE_CACHE=1 NODE_ENV=development nodemon app.js",
+    "dev": "cross-env BABEL_DISABLE_CACHE=1 NODE_ENV=development nodemon app.js",
     "heroku-postbuild": "",
     "webpack": "webpack"
   },

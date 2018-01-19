@@ -12,16 +12,21 @@ export class Login extends Component {
 
   onInputChange = (event) => {
     this.setState({ [event.target.name]: event.target.value })
+    fetch('/api/users').then(res => JSON.stringify(res))
+      .then(res => {
+        debugger
+      })
   }
 
   onSubmit = () => {
-    this.props.actions.login(this.state);
+    // this.props.actions.login(this.state);
+    // this.props.actions.test()
   }
 
   render() {
     return (
       <div className='login login-grid'>
-        <form className='form-box' onSubmit={this.onSubmit.bind(this)}>
+        <form className='form-box' onSubmit={this.onSubmit.bind()}>
           <h1>Login..</h1>
 
           <div className='content'>
@@ -41,7 +46,7 @@ export class Login extends Component {
 
           <div className='form-footer'>
             <input type='submit' value='Login' className='login-button' />
-            <input type='submit' value='SignUp' className='signup-button' />
+            <input type='button' value='SignUp' className='signup-button' />
           </div>
         </form>
       </div>
