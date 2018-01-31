@@ -12,6 +12,7 @@ const morgan = require('morgan')
 const session = require('express-session')
 const MongoStore = require('connect-mongo')(session)
 const expressValidator = require('express-validator')
+const compression = require('compression');
 const flash = require('connect-flash')
 const socket = require('socket.io').listen(4000).sockets
 const models = require('./models/')
@@ -35,20 +36,6 @@ require('./config/passport')(passport)
 // Initialize app
 const app = express();
 
-// Serve static files from React
-app.use(express.static(path.join(__dirname, 'public')));
-
-// Run Webpack Dev Server in development mode
-if (process.env.NODE_ENV === 'development') {
-  const compiler = webpack(config);
-  app.use(history());
-  app.use(webpackDevMiddleware(compiler, {
-    noInfo: true,
-    publicPath: config.output.publicPath
-  }));
-  app.use(webpackHotMiddleware(compiler));
-};
-
 // Set up CORS
 app.use(cors());
 app.use(helmet());
@@ -61,6 +48,29 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(cookieParser());
 
+// Compression
+app.use(compression());
+
+// Run Webpack Dev Server in development mode
+if (process.env.NODE_ENV === 'development') {
+  const compiler = webpack(config);
+  app.use(history({
+    rewrites: [
+      { from: /\/api/, to: '' }
+    ],
+    verbose: true
+  }));
+  app.use(webpackDevMiddleware(compiler, {
+    noInfo: true,
+    publicPath: config.output.publicPath
+  }));
+  app.use(webpackHotMiddleware(compiler));
+};
+
+// Serve static files from React
+app.use(express.static(path.join(__dirname, 'public')));
+
+// Set up mongo store
 const mongoStore = new MongoStore({ mongooseConnection: db });
 
 // Express Session
