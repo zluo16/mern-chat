@@ -54,12 +54,12 @@ app.use(compression());
 // Run Webpack Dev Server in development mode
 if (process.env.NODE_ENV === 'development') {
   const compiler = webpack(config);
-  app.use(history({
-    rewrites: [
-      { from: /\/api/, to: '' }
-    ],
-    verbose: true
-  }));
+  // app.use(history({
+  //   rewrites: [
+  //     { from: /\/api/, to: '' }
+  //   ],
+  //   verbose: true
+  // }));
   app.use(webpackDevMiddleware(compiler, {
     noInfo: true,
     publicPath: config.output.publicPath
