@@ -9,10 +9,18 @@ export default class ChatContainer extends Component {
   }
 
   render() {
+    const my = JSON.parse(localStorage.getItem('user'));
+
     return (
       <div className="container">
         <div className="header">
-          <h2>Messages</h2>
+          {!!my ? <h2>Welcome {my.firstName}</h2> : null}
+          <input
+            type='button'
+            value='Logout'
+            className='logout-button'
+            onClick={this.props.onLogout}
+          />
           <a href="#" title="Add Friend to this chat">+</a>
         </div>
         <div className="chat-box">

@@ -7,7 +7,7 @@ export default function authReducer(state = {
       return {
         ...state,
         currentUser: {
-          _id: action.payload._id,
+          id: action.payload.id,
           username: action.payload.username,
           fullname: `${action.payload.firstName} ${action.payload.lastName}`
         }
@@ -24,7 +24,7 @@ export default function authReducer(state = {
         currentUser: {},
         errors: []
       };
-      
+
     default:
       return state
   }

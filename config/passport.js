@@ -5,14 +5,11 @@ const LocalStrategy = require('passport-local').Strategy
 module.exports = (passport) => {
   // Serialize user
   passport.serializeUser(function(user, done) {
-    // console.log(user.local);
-    // console.log(done);
     done(null, user.local);
   });
   // Deserialize user
   passport.deserializeUser(function(user, done) {
-    console.log(user);
-    User.findOne({ 'user.username': username }, function(err, usr) {
+    User.findOne({ 'local.username': username }, function(err, usr) {
       if (err) {
         return done(err);
       }

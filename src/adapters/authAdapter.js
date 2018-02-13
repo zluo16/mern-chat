@@ -5,9 +5,7 @@ export default class AuthAdapter {
       headers: headers(),
       body: JSON.stringify(loginParams)
     }).then(res => {
-      console.log(res);
-      debugger
-      res.json()
+      return res.json()
     })
   }
 
@@ -17,6 +15,10 @@ export default class AuthAdapter {
       headers: headers(),
       body: JSON.stringify(signupParams)
     }).then(res => res.json())
+  }
+
+  static logout() {
+    return fetch('/api/logout').then(res => res.json())
   }
 
   static test() {

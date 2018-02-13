@@ -1,4 +1,5 @@
 import React, { Component } from 'react'
+import PropTypes from 'prop-types'
 import ChatContainer from './chatComponents/chatContainer'
 import Modal from 'react-modal'
 import { ConnectedUsersList } from './usersComponents/usersList'
@@ -8,10 +9,6 @@ import { bindActionCreators } from 'redux'
 import { connect } from 'react-redux'
 
 const customStyles = {
-  // overlay: {
-  //   position   : 'fixed',
-  //   top        : 0,
-  // },
   content : {
     top          : 0,
     left         : 0,
@@ -32,7 +29,13 @@ export class HomeContainer extends Component {
     password: '',
     firstName: '',
     lastName: '',
-    loginForm: true
+    modalOpen: true,
+    loginForm: true,
+  }
+
+  componentDidMount() {
+    let isLoggedIn = !localStorage.getItem('user');
+    this.setState({ modalOpen: isLoggedIn })
   }
 
   onInputChange = (event) => {
@@ -43,20 +46,26 @@ export class HomeContainer extends Component {
     this.setState({ loginForm: !this.state.loginForm })
   }
 
-  onSubmitLogin = () => {
+  onSubmitLogin = (event) => {
+    event.preventDefault()
     let loginParams = Object.assign({},
       { username: this.state.username },
       { password: this.state.password }
-    )
+    );
     this.props.actions.login(loginParams)
+    this.setState({ modalOpen: false });
+  }
+
+  onLogout = () => {
+    this.props.actions.logout();
+    this.setState({ modalOpen: true });
   }
 
   render() {
     return (
       <div className="wrapper">
         <Modal
-          // className='modal-overlay'
-          isOpen={true}
+          isOpen={this.state.modalOpen}
           style={customStyles}
         >
           {this.state.loginForm ?
@@ -137,7 +146,7 @@ export class HomeContainer extends Component {
         </Modal>
 
         <ConnectedUsersList />
-        <ChatContainer />
+        <ChatContainer onLogout={this.onLogout}/>
         <ConnectedUserProfile />
       </div>
     )
