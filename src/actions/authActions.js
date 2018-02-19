@@ -17,6 +17,7 @@ export function login(loginParams) {
             lastName: res.local.lastName
           }
           dispatch({ type: 'LOGGING_IN', payload: user })
+          dispatch({ type: 'ADD_CURRENT_USER', payload: user })
           window.localStorage.setItem('user', JSON.stringify(user))
         }
       })

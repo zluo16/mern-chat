@@ -1,20 +1,26 @@
 import React, { Component } from 'react'
 import { ConnectedMessageList } from './messageList'
+import * as actions from '../../actions/currentUserActions'
+import { bindActionCreators } from 'redux'
+import { connect } from 'react-redux'
 
-export default class ChatContainer extends Component {
-  constructor(props) {
-    super(props)
+export class ChatContainer extends Component {
 
-    this.state = {}
+  componentDidMount() {
+    this.props.actions.addCurrentUser(JSON.parse(localStorage.getItem('user')));
+  }
+
+  componentWillReceiveProps(nextProps) {
+    if (this.props.currentUser !== nextProps.currentUser) {
+      this.setState({ currentUser: nextProps.currentUser });
+    }
   }
 
   render() {
-    const my = JSON.parse(localStorage.getItem('user'));
-
     return (
       <div className="container">
         <div className="header">
-          {!!my ? <h2>Welcome {my.firstName}</h2> : null}
+          {!!this.props.currentUser ? <h2>Welcome {this.props.currentUser.firstName}</h2> : null}
           <input
             type='button'
             value='Logout'
@@ -34,3 +40,13 @@ export default class ChatContainer extends Component {
     )
   }
 }
+
+const mapStateToProps = (state) => {
+  return { currentUser: state.currentUser }
+};
+
+const mapDispatchToProps = (dispatch) => {
+  return { actions: bindActionCreators(actions, dispatch) }
+}
+
+export const ConnectedChatContainer = connect(mapStateToProps, mapDispatchToProps)(ChatContainer);

@@ -21,7 +21,7 @@ a {
 }
 
 .login {
-  background: url(./background-imgs/marc-olivier-jodoin-409708.jpg);
+  background: url('https://i.imgur.com/2ql0NjQ.jpg');
   height: 100vh;
   background-size: cover;
   overflow: hidden;

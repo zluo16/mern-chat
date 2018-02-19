@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import PropTypes from 'prop-types'
-import ChatContainer from './chatComponents/chatContainer'
+import { ConnectedChatContainer } from './chatComponents/chatContainer'
 import Modal from 'react-modal'
 import { ConnectedUsersList } from './usersComponents/usersList'
 import { ConnectedUserProfile } from './profileComponents/UserProfile'
@@ -31,11 +31,12 @@ export class HomeContainer extends Component {
     lastName: '',
     modalOpen: true,
     loginForm: true,
+    user: {}
   }
 
   componentDidMount() {
     let isLoggedIn = !localStorage.getItem('user');
-    this.setState({ modalOpen: isLoggedIn })
+    this.setState({ modalOpen: isLoggedIn });
   }
 
   onInputChange = (event) => {
@@ -146,7 +147,7 @@ export class HomeContainer extends Component {
         </Modal>
 
         <ConnectedUsersList />
-        <ChatContainer onLogout={this.onLogout}/>
+        <ConnectedChatContainer onLogout={this.onLogout} currentUser={this.state.user} />
         <ConnectedUserProfile />
       </div>
     )
