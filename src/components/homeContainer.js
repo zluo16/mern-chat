@@ -30,8 +30,7 @@ export class HomeContainer extends Component {
     firstName: '',
     lastName: '',
     modalOpen: true,
-    loginForm: true,
-    user: {}
+    loginForm: true
   }
 
   componentDidMount() {

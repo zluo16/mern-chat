@@ -8,7 +8,7 @@ const userSchema = mongoose.Schema({
     firstName: { type: String, required: true },
     lastName: { type: String, required: true },
     password: { type: String, required: true },
-    messages: [ { type: String }, ],
+    chatRooms: [ { type: String }, ],
     isSignedIn: { type: Boolean, default: false }
   }
 })

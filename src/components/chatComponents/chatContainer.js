@@ -20,7 +20,7 @@ export class ChatContainer extends Component {
     return (
       <div className="container">
         <div className="header">
-          {!!this.props.currentUser ? <h2>Welcome {this.props.currentUser.firstName}</h2> : null}
+          <h2>Welcome {!!this.props.currentUser ? this.props.currentUser.firstName : null}</h2>
           <input
             type='button'
             value='Logout'

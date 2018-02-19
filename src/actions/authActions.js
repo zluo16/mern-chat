@@ -49,6 +49,7 @@ export function logout() {
           window.localStorage.clear();
           console.log(res.message);
           dispatch({ type: 'LOGOUT_USER' });
+          dispatch({ type: 'REMOVE_USER' })
         }
       })
   }

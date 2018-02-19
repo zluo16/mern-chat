@@ -6,7 +6,6 @@ const app = require('../app');
 
 // Signup
 router.post('/signup', passport.authenticate('signup'), function(req, res) {
-  // console.log(req);
   res.send(req.user);
 });
 
@@ -24,13 +23,21 @@ router.get('/logout', function(req, res) {
 // Users (used for testing purposes)
 router.get('/users', function(req, res) {
   // Find all users
-  models.User.find({}, function(err, users) {
+  models.Users.find({}, function(err, users) {
     // Handle errors
     if (err) {
       throw err
     }
     // return results in JSON form
-    return res.send(users);
+    let formattedUsers = users.map(u => {
+      return {
+        id: u._id,
+        firstName: u.firstName,
+        lastName: u.lastName,
+        username: u.username
+      };
+    });
+    return res.send(formattedUsers);
   });
 });
 

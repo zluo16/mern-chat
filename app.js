@@ -4,7 +4,6 @@ const express = require('express');
 const routes = require('./routes/index')
 const controller = require('./routes/controller')
 const passport = require('passport')
-const http = require('http')
 const path = require('path');
 const cors = require('cors')
 const helmet = require('helmet')
@@ -12,9 +11,9 @@ const morgan = require('morgan')
 const session = require('express-session')
 const MongoStore = require('connect-mongo')(session)
 const expressValidator = require('express-validator')
+const passportSocketIo = require('passport.socketio');
 const compression = require('compression');
 const flash = require('connect-flash')
-const socket = require('socket.io').listen(4000).sockets
 const models = require('./models/')
 const config = require('./webpack.config.dev');
 const webpack = require('webpack');
@@ -35,6 +34,10 @@ require('./config/passport')(passport)
 
 // Initialize app
 const app = express();
+const http = require('http').Server(app);
+
+// Imitialize socket.io
+const socket = require('socket.io')(http);
 
 // Set up CORS
 app.use(cors());
@@ -90,6 +93,27 @@ app.use(function printSession(req, res, next) {
   // console.log('req.session', req.session);
   return next();
 });
+
+// Web Socket Authorization
+socket.use('authorization', passportSocketIo.authorize({
+  key: 'express.sid',
+  secret: process.env.SESSION_SECRET || sesh.secret,
+  store: mongoStore,
+  success: (data, accept) => {
+    accept();
+  },
+  fail: (data, message, error, accept) => {
+    if (error) {
+      throw new Error(`Failed to connect to sockets ${message}`);
+    } else {
+      console.log(`Failed to connect to sockets ${message}`);
+      accept(null, false);
+    }
+  }
+}));
+
+// Connect web sockets
+const webSockets = require('./socket')(config, socket);
 
 // Connect Flash
 app.use(flash());
