@@ -2,6 +2,7 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import { createStore, applyMiddleware, compose } from 'redux'
 import { Provider } from 'react-redux'
+import io from 'socket.io-client'
 import thunk from 'redux-thunk'
 import rootReducer from './reducers/index'
 import App from './App';

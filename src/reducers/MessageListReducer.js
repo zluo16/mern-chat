@@ -4,8 +4,10 @@ export default function massageList(state = [
 ], action) {
   switch (action.type) {
     case 'SEND_MESSAGE':
-
       break;
+
+    case 'UPDATE_MESSAGES':
+      return action.payload
 
     default:
       return state

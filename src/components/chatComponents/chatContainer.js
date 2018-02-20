@@ -10,11 +10,11 @@ export class ChatContainer extends Component {
     this.props.actions.addCurrentUser(JSON.parse(localStorage.getItem('user')));
   }
 
-  componentWillReceiveProps(nextProps) {
-    if (this.props.currentUser !== nextProps.currentUser) {
-      this.setState({ currentUser: nextProps.currentUser });
-    }
-  }
+  // componentWillReceiveProps(nextProps) {
+  //   if (this.props.currentUser !== nextProps.currentUser) {
+  //     this.setState({ currentUser: nextProps.currentUser });
+  //   }
+  // }
 
   render() {
     return (

@@ -1,8 +1,14 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
+import * as actions from '../../actions/usersActions'
+import { bindActionCreators } from 'redux'
 import User from './user'
 
 export class UsersList extends Component {
+
+  componentDidMount() {
+    this.props.actions.updateUsers()
+  }
 
   render() {
     const { users } = this.props
@@ -29,7 +35,11 @@ export class UsersList extends Component {
 const mapStateToProps = (state) => {
   return {
     users: state.users
-  }
-}
+  };
+};
 
-export const ConnectedUsersList = connect(mapStateToProps)(UsersList)
+const mapDispatchToProps = (dispatch) => {
+  return { actions: bindActionCreators(actions, dispatch) };
+};
+
+export const ConnectedUsersList = connect(mapStateToProps, mapDispatchToProps)(UsersList);

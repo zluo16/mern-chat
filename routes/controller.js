@@ -6,7 +6,7 @@ const app = require('../app');
 
 // Signup
 router.post('/signup', passport.authenticate('signup'), function(req, res) {
-  res.send(req.user);
+  res.json(req.user);
 });
 
 // Login
@@ -23,7 +23,7 @@ router.get('/logout', function(req, res) {
 // Users (used for testing purposes)
 router.get('/users', function(req, res) {
   // Find all users
-  models.Users.find({}, function(err, users) {
+  models.User.find({}, function(err, users) {
     // Handle errors
     if (err) {
       throw err
@@ -31,13 +31,33 @@ router.get('/users', function(req, res) {
     // return results in JSON form
     let formattedUsers = users.map(u => {
       return {
-        id: u._id,
-        firstName: u.firstName,
-        lastName: u.lastName,
-        username: u.username
+        id: u.local._id,
+        firstName: u.local.firstName,
+        lastName: u.local.lastName,
+        username: u.local.username,
+        fullname: `${u.local.firstName} ${u.local.lastName}`
       };
     });
-    return res.send(formattedUsers);
+    return res.json(formattedUsers);
+  });
+});
+
+// Select User
+router.get('/user/:username', (req, res) => {
+  models.User.findOne({ 'local.username': req.username }, function(err, user) {
+    // Find the user
+    if (err) {
+      throw err;
+    };
+    // Send the user
+    let formattedUser = {
+      id: user.local._id,
+      firstName: user.local.firstName,
+      lastName: user.local.lastName,
+      username: user.local.username,
+      fullname: `${user.local.firstName} ${user.local.lastName}`
+    }
+    return res.json(formattedUser);
   });
 });
 

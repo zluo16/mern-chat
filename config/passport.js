@@ -9,7 +9,7 @@ module.exports = (passport) => {
   });
   // Deserialize user
   passport.deserializeUser(function(user, done) {
-    User.findOne({ 'local.username': username }, function(err, usr) {
+    User.findOne({ 'local.username': user.local.username }, function(err, usr) {
       if (err) {
         return done(err);
       }

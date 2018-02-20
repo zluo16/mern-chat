@@ -1,5 +1,5 @@
 module.exports = {
-  Users: require('./user'),
-  ChatRooms: require('./chatRoom'),
-  Messages: require('./message')
+  User: require('./user'),
+  ChatRoom: require('./chatRoom'),
+  Message: require('./message')
 };

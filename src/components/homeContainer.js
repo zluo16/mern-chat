@@ -4,9 +4,14 @@ import { ConnectedChatContainer } from './chatComponents/chatContainer'
 import Modal from 'react-modal'
 import { ConnectedUsersList } from './usersComponents/usersList'
 import { ConnectedUserProfile } from './profileComponents/UserProfile'
-import * as actions from '../actions/authActions'
+import * as authActions from '../actions/authActions'
+import * as messageActions from '../actions/messageActions'
 import { bindActionCreators } from 'redux'
 import { connect } from 'react-redux'
+import io from 'socket.io-client'
+
+const socketUrl = `http://localhost:${process.env.SOCKET_PORT}`
+const socket = io.connect(socketUrl);
 
 const customStyles = {
   content : {
@@ -36,6 +41,10 @@ export class HomeContainer extends Component {
   componentDidMount() {
     let isLoggedIn = !localStorage.getItem('user');
     this.setState({ modalOpen: isLoggedIn });
+    // Connect to webSockets
+    socket.on('messages', (messages) => {
+      this.props.actions.updateMessages(messages)
+    })
   }
 
   onInputChange = (event) => {
@@ -53,6 +62,18 @@ export class HomeContainer extends Component {
       { password: this.state.password }
     );
     this.props.actions.login(loginParams)
+    this.setState({ modalOpen: false });
+  }
+
+  onSubmitSignUp = (event) => {
+    event.preventDefault();
+    let signupParams = Object.assign({},
+      { firstName: this.state.firstName },
+      { lastName: this.state.lastName },
+      { username: this.state.username },
+      { password: this.state.password }
+    );
+    this.props.actions.signup(signupParams);
     this.setState({ modalOpen: false });
   }
 
@@ -154,7 +175,8 @@ export class HomeContainer extends Component {
 }
 
 const mapDispatchToProps = (dispatch) => {
-  return { actions: bindActionCreators(actions, dispatch) }
-}
+  const combinedActions = Object.assign({}, authActions, messageActions);
+  return { actions: bindActionCreators(combinedActions, dispatch) };
+};
 
-export const ConnectedHomeContainer = connect(null, mapDispatchToProps)(HomeContainer)
+export const ConnectedHomeContainer = connect(null, mapDispatchToProps)(HomeContainer);

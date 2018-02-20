@@ -11,13 +11,21 @@ module.exports = (config, io) => {
       return user === socket.request.user;
     });
 
-    socket.on('enter', (room) => {
-      models.ChatRooms.findOne({ 'local._id': room }).exec()
+    socket.on('enter', (user) => {
+      models.ChatRooms.findOne({ 'local.users': [socket.request.user, user] }).exec()
         .then(room => {
-          let messages = models.Messages.find({ 'local.chatRoom': room ._id});
-          socket.emit('messages', messages);
+          if (!room) {
+            let newRoom = new models.ChatRoom()
+            newRoom.users = [ socket.request.user, user ];
+            socket.emit('messages', []);
+          } else {
+            models.Message.find({ 'local.chatRoom': room._id }).exec()
+              .then(messages => {
+                socket.emit('messages', messages);
+              })
+          }
         });
-    })
+    });
 
     socket.on('message', (message) => {
       // Check if chat room was added to message
@@ -38,6 +46,8 @@ module.exports = (config, io) => {
       newMessage.chatRoom = message.chatRoom
 
       newMessage.save()
-    })
-  })
+
+      socket.emit('message', newMessage);
+    });
+  });
 }

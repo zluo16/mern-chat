@@ -3,9 +3,8 @@ export default function users(state = [
   { _id: 3, username: 'Morty', fullname: 'Morty Smith' }
 ], action) {
   switch (action.type) {
-    case 'ADD_USER':
-
-      break;
+    case 'UPDATE_USERS':
+      return action.payload
 
     default:
       return state

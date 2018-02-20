@@ -1,4 +1,8 @@
 import React, { Component } from 'react'
+import io from 'socket.io-client'
+
+const socketUrl = `http://localhost:${process.env.SOCKET_PORT}`
+const socket = io.connect(socketUrl);
 
 export default class User extends Component {
 
@@ -14,6 +18,10 @@ export default class User extends Component {
     this.setState({ selected: 'highlighted' })
   }
 
+  onClickUser = () => {
+    socket.emit('enter', this.props.username);
+  }
+
   render() {
     const { username, fullname } = this.props
 
@@ -22,7 +30,9 @@ export default class User extends Component {
 
     return (
       <div
-        className={this.state.selected}>
+        name={un}
+        className={this.state.selected}
+        onClick={this.onClickUser.bind(this)}>
         <img src='./user-placeholder.jpg' />
         <div className='username'>
           <h3>{fn}</h3>

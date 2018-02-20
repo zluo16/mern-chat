@@ -5,16 +5,16 @@ export function login(loginParams) {
     console.log('Logging in...');
     AuthAdapter.login(loginParams)
       .then(res => {
-        console.log(res);
+        console.log(res.data);
         if (res.error) {
           dispatch({ type: 'LOGIN_FAILED', payload: res.error })
           console.log('Login failed');
         } else {
           let user = {
-            id: res._id,
-            username: res.local.username,
-            firstName: res.local.firstName,
-            lastName: res.local.lastName
+            id: res.data._id,
+            username: res.data.local.username,
+            firstName: res.data.local.firstName,
+            lastName: res.data.local.lastName
           }
           dispatch({ type: 'LOGGING_IN', payload: user })
           dispatch({ type: 'ADD_CURRENT_USER', payload: user })
@@ -32,11 +32,19 @@ export function singup(signupParams) {
         if (res.error) {
           console.log('Signup failed');
         } else {
-          debugger
-        }
-      })
-  }
-}
+          let user = {
+            id: res.data._id,
+            username: res.data.local.username,
+            firstName: res.data.local.firstName,
+            lastName: res.data.local.lastName
+          };
+          dispatch({ type: 'LOGGING_IN', payload: user });
+          dispatch({ type: 'ADD_CURRENT_USER', payload: user });
+          window.localStorage.setItem('user', JSON.stringify(user));
+        };
+      });
+  };
+};
 
 export function logout() {
   return (dispatch) => {
@@ -47,7 +55,7 @@ export function logout() {
           console.log('Logout failed');
         } else {
           window.localStorage.clear();
-          console.log(res.message);
+          console.log(res.data.message);
           dispatch({ type: 'LOGOUT_USER' });
           dispatch({ type: 'REMOVE_USER' })
         }

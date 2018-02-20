@@ -28,6 +28,7 @@ mongoose.connect(configDB.db)
 const db = mongoose.connection
 
 process.env.SESSION_SECRET = process.env.SESSION_SECRET || sesh.secret;
+process.env.SOCKET_PORT = process.env.SOCKET_PORT || 4000;
 
 // Pass in passport for configuration
 require('./config/passport')(passport)
@@ -37,7 +38,7 @@ const app = express();
 const http = require('http').Server(app);
 
 // Imitialize socket.io
-const socket = require('socket.io')(http);
+const socket = require('socket.io').listen(process.env.SOCKET_PORT);
 
 // Set up CORS
 app.use(cors());
